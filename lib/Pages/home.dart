@@ -11,17 +11,34 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   double circleRadius = 200;
+  final Tween<double> backgroundScale = Tween<double>(begin: 0.0, end: 1.0);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      // backgroundColor: Colors.blue,
       body: Container(
         child: Stack(
           clipBehavior: Clip.none,
-          children: [basicCircularBouncingButton()],
+          children: [pageBackground(), basicCircularBouncingButton()],
         ),
       ),
     );
+  }
+
+  Widget pageBackground() {
+    return TweenAnimationBuilder(
+        tween: backgroundScale,
+        duration: Duration(seconds: 2),
+        builder: (context, value, child) {
+          return Transform.scale(
+            scale: value,
+            child: child,
+          );
+        },
+        curve: Curves.fastLinearToSlowEaseIn,
+        child: Container(
+          color: Colors.black,
+        ));
   }
 
   Widget basicCircularBouncingButton() {
