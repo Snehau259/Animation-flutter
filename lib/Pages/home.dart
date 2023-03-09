@@ -7,7 +7,6 @@ class MyHomePage extends StatefulWidget {
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
-  // final int _circleRadius = 200;
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -19,43 +18,34 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         child: Stack(
           clipBehavior: Clip.none,
-          children: [
-            basicCircularBouncingButton()
-          ],
+          children: [basicCircularBouncingButton()],
         ),
       ),
-      // appBar: AppBar(backgroundColor: Colors.red[500],
-
-      //   title: Text(widget.title),
-      // ),
-
-      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  Center basicCircularBouncingButton() {
+  Widget basicCircularBouncingButton() {
     return Center(
-            child: GestureDetector(
-              onTap: () {
-                // print("Tapped");
-                setState(changeRadius);
-              },
-              child: AnimatedContainer(
-                duration: Duration(seconds: 2),
-                height: circleRadius,
-                width: circleRadius,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(circleRadius),
-                  color: Colors.purple[500],
-                ),
-                curve: Curves.bounceInOut,
-                child: Center(
-                  child: Text("Basic",
-                      style: TextStyle(fontSize: 20, color: Colors.white)),
-                ),
-              ),
-            ),
-          );
+      child: GestureDetector(
+        onTap: () {
+          setState(changeRadius);
+        },
+        child: AnimatedContainer(
+          duration: Duration(seconds: 2),
+          height: circleRadius,
+          width: circleRadius,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(circleRadius),
+            color: Colors.purple[500],
+          ),
+          curve: Curves.bounceInOut,
+          child: Center(
+            child: Text("Basic",
+                style: TextStyle(fontSize: 20, color: Colors.white)),
+          ),
+        ),
+      ),
+    );
   }
 
   void changeRadius() {
