@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -9,9 +11,23 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
   double circleRadius = 200;
   final Tween<double> backgroundScale = Tween<double>(begin: 0.0, end: 1.0);
+  AnimationController? starController;
+  void initState() {
+    super.initState();
+    starController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        seconds: 4,
+      ),
+    );
+    starController!.repeat();
+
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         child: Stack(
           clipBehavior: Clip.none,
-          children: [pageBackground(), basicCircularBouncingButton()],
+          children: [pageBackground(), basicCircularBouncingButton(),starIcon()],
         ),
       ),
     );
@@ -68,4 +84,22 @@ class _MyHomePageState extends State<MyHomePage> {
   void changeRadius() {
     circleRadius = circleRadius == 200 ? 400 : 200;
   }
+  Widget starIcon() {
+    return AnimatedBuilder(
+      animation: starController!.view,
+      builder: (_buildContext, _child) {
+        return Transform.rotate(
+          angle: starController!.value * 2 * pi,
+          child: _child,
+        );
+      },
+      child: const Icon(
+        Icons.star,
+        size: 100,
+        color: Colors.white,
+      ),
+    );
+  }
 }
+
+
